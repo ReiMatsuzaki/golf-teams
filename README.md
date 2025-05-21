@@ -31,3 +31,19 @@ teams = optimize_teams(
 ```
 
 See `tests/test_optimizer.py` for a minimal example.
+
+## Streamlit UI
+
+A simple Streamlit application is provided in `streamlit_app.py` for interactive use. The expected Excel file should contain three sheets:
+
+1. `participants` – columns `name`, `skill`, and optional `executive`.
+2. `ng_pairs` – optional, columns `a` and `b` listing pairs that must **not** be on the same team.
+3. `decision_pairs` – optional, columns `a` and `b` listing pairs that must be on the same team.
+
+Run the app locally with:
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Upload the Excel file and press **Start** to see the generated teams.
