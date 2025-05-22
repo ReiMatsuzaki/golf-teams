@@ -10,6 +10,18 @@ pair constraints:
 The `golf_team_optimizer` module provides a simple heuristic implementation
 written in pure Python so it can run without extra dependencies.
 
+## Setup
+
+Install the Python dependencies listed in `requirements.txt` before running the
+code. If you are using Codex you can simply execute the provided setup script:
+
+```bash
+./setup.sh
+```
+
+This installs packages such as `openpyxl`, `pandas`, `streamlit` and `pytest` so
+the application and tests can run offline.
+
 ## Usage
 
 ```python
