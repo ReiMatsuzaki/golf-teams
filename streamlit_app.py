@@ -39,9 +39,44 @@ if st.button("Start") and uploaded is not None:
             decision_pairs=decision_pairs or None,
         )
 
+        # Display individual team details as before
         for i, team in enumerate(teams, 1):
             st.subheader(f"Team {i}")
             for p in team.members:
                 st.write(f"{p.name} - Skill {p.skill} - Exec {p.executive}")
             st.write(f"Average skill: {team.skill_average:.2f}")
             st.write(f"Executives: {team.executive_count}")
+
+        # Build result table for download and visualization
+        rows = []
+        for i, team in enumerate(teams, 1):
+            for p in team.members:
+                rows.append(
+                    {
+                        "Team": i,
+                        "Member": p.name,
+                        "Skill": p.skill,
+                        "Executive": p.executive,
+                    }
+                )
+
+        result_df = pd.DataFrame(rows)
+
+        st.subheader("Team Assignments")
+        st.dataframe(result_df)
+
+        csv = result_df.to_csv(index=False).encode("utf-8")
+        st.download_button("Download CSV", csv, "teams.csv", "text/csv")
+
+        plot_df = (
+            pd.DataFrame(
+                {
+                    "Team": list(range(1, len(teams) + 1)),
+                    "Average Skill": [t.skill_average for t in teams],
+                }
+            )
+            .set_index("Team")
+        )
+
+        st.subheader("Average Skill by Team")
+        st.bar_chart(plot_df)
